@@ -2,10 +2,11 @@
 
 .deepfake{
   width: 100%;
-  padding: 2rem;
+  padding: 0rem 2rem;
+  margin-bottom: 3rem;
 
   @include mobile {
-      padding: 1rem;
+      padding: 0rem 1rem;
     }
 
   header{
@@ -51,6 +52,14 @@
       }
     }
 
+  }
+
+  .p{
+    margin-top: .5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: red;
   }
 
   img{

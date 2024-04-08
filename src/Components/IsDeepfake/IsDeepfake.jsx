@@ -9,9 +9,11 @@ import './isdeepfake.scss'
 const IsDeepfake = () => {
 
   const [dataUrl, setDataUrl ]= useState(null)
+  const [file, setFile ]= useState(null)
   const [isLoading, setIsLoading ]= useState(false)
   const [predictions, setPredictions ]= useState('')
-  const [msg, setMsg ]= useState('hello')
+  const [msg, setMsg ]= useState('')
+  const [error, setError ]= useState(false)
 
 
 
@@ -24,11 +26,22 @@ const IsDeepfake = () => {
     })
   }
 
-  async function HANDLECHANGE (e){
+  async function HANDLECHANGE(e){
+    setError(false)
     setPredictions(null)
-    const file = e.target.files[0]
-    const result = await readImageFile(file)
+    setMsg(null)
+    const filee = e.target.files[0]
+    setFile(filee)
+    const result = await readImageFile(filee)
     setDataUrl(result)
+
+  }
+
+  async function HANDLEUPLOAD (){
+
+    if(!file){
+      return
+    }
     
     try {
       setIsLoading(true)
@@ -44,11 +57,16 @@ const IsDeepfake = () => {
     } catch (error) {
       console.log(error)
       setIsLoading(false)
+      setError(true)
     }
   }
 
   return (
-    <motion.div className="deepfake">
+    <motion.div className="deepfake"
+    initial={{opacity:0, x:100}}
+    animate={{opacity:1, x:0}}
+    transition={{duration:.3}}
+    exit={{opacity:0, x:100}}>
       <header>
         <Link to='/'>  
           <ArrowBackIosRounded/>
@@ -60,7 +78,7 @@ const IsDeepfake = () => {
       <div className="textContainer">
         <p>Choose an Image:</p>
         <input type="file" onChange={HANDLECHANGE}/>
-        <button>
+        <button onClick={HANDLEUPLOAD}>
           Predict
         </button>
       </div>
@@ -84,6 +102,17 @@ const IsDeepfake = () => {
           {msg}
         </motion.p>
       </motion.div>)}
+
+      {error && (<>
+      <div className="p">
+        <motion.p
+        initial={{opacity:0, translateY:60}}
+        animate={{opacity:1, translateY:0}}
+        transition={{duration:.5, delay:0.2}}
+        >cant upload .png or .webp files, please try again</motion.p>
+      </div>
+      </>)}
+
 
       {/* {predictions && <img src={dataUrl} alt="" />} */}
       {predictions && (
