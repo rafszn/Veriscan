@@ -1,0 +1,144 @@
+@import '../../index.scss';
+
+.deepfake{
+  width: 100%;
+  padding: 2rem;
+
+  @include mobile {
+      padding: 1rem;
+    }
+
+  header{
+    height: 60px;
+    padding: 0rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .textContainer{
+    width: 100%;
+
+
+    p{
+      font-size: 1rem;
+      margin-top: 2rem;
+    }
+
+    input{
+      width: 100%;
+      background-color: rgba(245, 245, 220, 0.506);
+      padding: 1.2rem;
+      margin-top: .5rem;
+      border-radius: 5px;
+    }
+
+    button{
+      font-family: 'Poppins', sans-serif;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      width:100px;
+      padding: 10px 20px;
+      border: 0;
+      background-color: rgba(245, 245, 220, 0.506);
+      border-radius: 3px;
+      transition: all .15s ease;
+
+      &:hover{
+        border: 1px solid rgb(0, 0, 0);
+        color: rgb(0, 0, 0);
+      }
+    }
+
+  }
+
+  img{
+    width: 700px;
+    height: 500px;
+    object-fit: contain;
+  }
+
+  .loader{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p{
+      font-size: .79rem;
+    }
+  }
+
+  .imageContainer{
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    @include mobile {
+      flex-direction: column;
+    }
+
+    .imgC{
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(214, 210, 210, 0.416);
+      border-radius: 10px;
+      flex: 1.5;
+    }
+
+    img{
+      width: 600px;
+      height: 450px;
+      object-fit: contain;
+      border-radius: 5px;
+
+      @include mobile {
+      width: 90%;
+      height: 40vh;
+    }
+
+    }
+
+    .predictionBox{
+      border: 1px solid rgba(214, 210, 210, 0.416) ;
+      padding: 1rem;
+      border-radius: 5px;
+      flex: 1;
+
+
+      .predictions{
+
+        h3{
+          font-size:1rem ;
+          font-weight: 400;
+          text-decoration: underline;
+        }
+
+        .data{
+
+          h1{
+            margin-top: 1rem;
+            font-weight: 600;
+            color: rgb(36, 36, 36);
+            // font-size: 1.7rem;
+          }
+
+          h2{
+            margin-top: 0.5rem;
+            font-size: .9rem;
+            color: rgb(36, 36, 36);
+
+          }
+        }
+      }
+    }
+  }
+}

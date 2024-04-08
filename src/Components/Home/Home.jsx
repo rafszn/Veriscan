@@ -1,8 +1,15 @@
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import './home.scss'
 
 const Home = () => {
   return (
-    <div className='home'>
+    <motion.div className='home'
+    initial={{ opacity: 0}}
+    animate={{ opacity: 1}}
+    transition={{duration:1.5}}
+    exit={{x:-100, opacity: 0}}
+    >
       <img src="/HERO.jpg" alt="hero img" />
       <div className="overlay"></div>
       <header>
@@ -20,11 +27,13 @@ const Home = () => {
           A simple App to verify the authenticity of your photos with our deepfake detection tool.
         </p>
 
-        <button>
-          Try this!
-        </button>
+        <Link to='isdeepfake'>
+          <button>
+            Try this!
+          </button>
+        </Link>
       </div>
-    </div>
+    </motion.div>
   )
 }
 export default Home

@@ -6,10 +6,16 @@
 
 body{
   font-family: 'Tilt Neon', sans-serif;
+  user-select: none;
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
 @mixin mobile {
   @media (max-width : 700px){
     @content;
   }
 }
+
