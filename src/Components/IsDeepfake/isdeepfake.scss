@@ -17,6 +17,16 @@
     justify-content: space-between;
   }
 
+  .disclaimer{
+
+
+    p{
+      margin-top: .5rem;
+      font-size: .8rem;
+      letter-spacing: 0.5px;
+    }
+  }
+
   .textContainer{
     width: 100%;
 
@@ -37,9 +47,9 @@
     button{
       font-family: 'Poppins', sans-serif;
       margin-top: 1rem;
-      font-size: 1rem;
+      font-size: .8rem;
       font-weight: 600;
-      width:100px;
+      width:165px;
       padding: 10px 20px;
       border: 0;
       background-color: rgba(245, 245, 220, 0.506);

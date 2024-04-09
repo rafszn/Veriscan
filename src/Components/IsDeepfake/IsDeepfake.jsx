@@ -1,7 +1,7 @@
 import { useState } from "react"
 import axios from 'axios'
 import {motion } from 'framer-motion'
-import { ArrowBackIosRounded } from "@mui/icons-material"
+import { ArrowBackIosRounded, ErrorOutlineRounded} from "@mui/icons-material"
 import { Link} from 'react-router-dom'
 import { BeatLoader} from 'react-spinners'
 import './isdeepfake.scss'
@@ -14,6 +14,7 @@ const IsDeepfake = () => {
   const [predictions, setPredictions ]= useState('')
   const [msg, setMsg ]= useState('')
   const [error, setError ]= useState(false)
+  const [isShown, setIsShown ]= useState(false)
 
 
 
@@ -49,9 +50,9 @@ const IsDeepfake = () => {
       const formData = new FormData();
       formData.append('file', file);
       setMsg('Analyzing image data')
-      const response = await axios.post('http://localhost:8880/deepfake', formData)
+      const response = await axios.post('https://veriscan-n.onrender.com/deepfake', formData)
       setMsg('Making Predictions')
-      console.log(response.data[0])
+      // console.log(response.data[0])
       setPredictions(response.data[0])
       setIsLoading(false)
     } catch (error) {
@@ -75,11 +76,26 @@ const IsDeepfake = () => {
         <ArrowBackIosRounded style={{opacity:0}}/>
       </header>
 
+      <div className="disclaimer">
+        <ErrorOutlineRounded style={{color:'red'}} onClick={()=> setIsShown(!isShown)}/>
+
+        {isShown && (
+          <div>
+            <motion.p
+            initial={{opacity:0, translateY:60}}
+            animate={{opacity:1, translateY:0}}
+            transition={{duration:.5, delay:0.2}}>
+              This app does not support video files. Additionally, while we strive for accuracy, our results are based on limited datasets and algorithms and may not be 100% foolproof. We appreciate your understanding and feedback as we continue to improve our service.
+            </motion.p>
+          </div>
+        )}
+      </div>
+
       <div className="textContainer">
         <p>Choose an Image:</p>
         <input type="file" onChange={HANDLECHANGE}/>
         <button onClick={HANDLEUPLOAD}>
-          Predict
+          Scan Image Data
         </button>
       </div>
 
