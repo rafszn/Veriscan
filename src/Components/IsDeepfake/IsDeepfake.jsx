@@ -82,9 +82,10 @@ const IsDeepfake = () => {
         {isShown && (
           <div>
             <motion.p
-            initial={{opacity:0, translateY:60}}
+            initial={{opacity:0, translateY:-60}}
             animate={{opacity:1, translateY:0}}
-            transition={{duration:.5, delay:0.2}}>
+            transition={{duration:.5, delay:0.2}}
+            exit={{opacity:0, translateY:60}}>
               This app does not support video files. Additionally, while we strive for accuracy, our results are based on limited datasets and algorithms and may not be 100% foolproof. We appreciate your understanding and feedback as we continue to improve our service.
             </motion.p>
           </div>
@@ -93,11 +94,15 @@ const IsDeepfake = () => {
 
       <div className="textContainer">
         <p>Choose an Image:</p>
+        <i className="params">
+          does not support .png and .webp files
+        </i>
         <input type="file" onChange={HANDLECHANGE}/>
         <button onClick={HANDLEUPLOAD}>
           Scan Image Data
         </button>
       </div>
+
 
 
       {isLoading && (

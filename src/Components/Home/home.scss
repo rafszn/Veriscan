@@ -14,6 +14,12 @@
     padding-left: 1rem;
     display: flex;
     align-items: center;
+
+    h2{
+      border: .5px solid white;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
   }
   img{
     position: absolute;
