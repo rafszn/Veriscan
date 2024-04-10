@@ -1,10 +1,11 @@
 import { useState } from "react"
 import axios from 'axios'
-import {motion } from 'framer-motion'
+import {motion , AnimatePresence} from 'framer-motion'
 import { ArrowBackIosRounded, ErrorOutlineRounded} from "@mui/icons-material"
 import { Link} from 'react-router-dom'
 import { BeatLoader} from 'react-spinners'
 import './isdeepfake.scss'
+import { dialogClasses } from "@mui/material"
 
 const IsDeepfake = () => {
 
@@ -63,104 +64,110 @@ const IsDeepfake = () => {
   }
 
   return (
-    <motion.div className="deepfake"
-    initial={{opacity:0, x:100}}
-    animate={{opacity:1, x:0}}
-    transition={{duration:.3}}
-    exit={{opacity:0, x:100}}>
-      <header>
-        <Link to='/'>  
-          <ArrowBackIosRounded/>
-        </Link>
-        <h2>Veriscan</h2>
-        <ArrowBackIosRounded style={{opacity:0}}/>
-      </header>
+    <div>
 
-      <div className="disclaimer">
-        <ErrorOutlineRounded style={{color:'red'}} onClick={()=> setIsShown(!isShown)}/>
+      <motion.div className="deepfake"
+      initial={{opacity:0, x:100}}
+      animate={{opacity:1, x:0}}
+      transition={{duration:.3}}
+      exit={{opacity:0, x:100}}>
+        <header>
+          <Link to='/'>  
+            <ArrowBackIosRounded/>
+          </Link>
+          <h2>Veriscan</h2>
+          <ArrowBackIosRounded style={{opacity:0}}/>
+        </header>
 
-        {isShown && (
-          <div>
-            <motion.p
-            initial={{opacity:0, translateY:-60}}
-            animate={{opacity:1, translateY:0}}
-            transition={{duration:.5, delay:0.2}}
-            exit={{opacity:0, translateY:60}}>
-              This app does not support video files. Additionally, while we strive for accuracy, our results are based on limited datasets and algorithms and may not be 100% foolproof. We appreciate your understanding and feedback as we continue to improve our service.
-            </motion.p>
-          </div>
-        )}
-      </div>
+        <div className="disclaimer">
+          <ErrorOutlineRounded style={{color:'red'}} onClick={()=> setIsShown(!isShown)}/>
 
-      <div className="textContainer">
-        <p>Choose an Image:</p>
-        <i className="params">
-          does not support .png and .webp files
-        </i>
-        <input type="file" onChange={HANDLECHANGE}/>
-        <button onClick={HANDLEUPLOAD}>
-          Scan Image Data
-        </button>
-      </div>
-
-
-
-      {isLoading && (
-      <motion.div className="loader"
-      initial={{opacity:0}}
-      animate={{opacity:1}}
-      transition={{duration:.5}}
-      >
-        <BeatLoader 
-          color="blue"
-          size=".5rem"
-        /> 
-        <motion.p
-        initial={{opacity:0, translateY:60}}
-        animate={{opacity:1, translateY:0}}
-        transition={{duration:.5, delay:0.2}}
-        >
-          {msg}
-        </motion.p>
-      </motion.div>)}
-
-      {error && (<>
-      <div className="p">
-        <motion.p
-        initial={{opacity:0, translateY:60}}
-        animate={{opacity:1, translateY:0}}
-        transition={{duration:.5, delay:0.2}}
-        >cant upload .png or .webp files, please try again</motion.p>
-      </div>
-      </>)}
-
-
-      {/* {predictions && <img src={dataUrl} alt="" />} */}
-      {predictions && (
-      <div className="imageContainer">
-
-        <div className="imgC">
-          <motion.img src={dataUrl} alt=""
-          initial={{opacity:0}}
-          animate={{opacity:1}}
-          transition={{duration:.5}}
-          />
-        </div>
-        <div className="predictionBox">
-          <div className="predictions">
-            <h3>
-              PREDICTION DATA
-            </h3>
-
-            <div className="data">
-              <h1> Image Type: <span style={{color:predictions.class === 'Deepfake' ? 'red' : 'green'}}>{predictions.class.toUpperCase()}</span></h1>
-              <h2>Confidence Level: <span>{Math.floor(predictions.score * 100).toFixed(1)}% Accuracy</span></h2>
+        <AnimatePresence>
+          {isShown && (
+            <div>
+              <motion.p
+              key='disc'
+              initial={{opacity:0, translateY:-60}}
+              animate={{opacity:1, translateY:0}}
+              transition={{duration:.3}}
+              exit={{opacity:0, translateY:-60}}>
+                This app does not support video files. Additionally, while we strive for accuracy, our results are based on limited datasets and algorithms and may not be 100% foolproof. We appreciate your understanding and feedback as we continue to improve our service.
+              </motion.p>
             </div>
-          </div>
-
+          )}
+        </AnimatePresence>
         </div>
-      </div>)}
-    </motion.div>
+
+        <div className="textContainer">
+          <p>Choose an Image:</p>
+          <i className="params">
+            does not support .png and .webp files
+          </i>
+          <input type="file" onChange={HANDLECHANGE}/>
+          <button onClick={HANDLEUPLOAD}>
+            Scan Image Data
+          </button>
+        </div>
+
+
+
+        {isLoading && (
+        <motion.div className="loader"
+        initial={{opacity:0}}
+        animate={{opacity:1}}
+        transition={{duration:.5}}
+        >
+          <BeatLoader 
+            color="blue"
+            size=".5rem"
+          /> 
+          <motion.p
+          initial={{opacity:0, translateY:60}}
+          animate={{opacity:1, translateY:0}}
+          transition={{duration:.5, delay:0.2}}
+          >
+            {msg}
+          </motion.p>
+        </motion.div>)}
+
+        {error && (<>
+        <div className="p">
+          <motion.p
+          initial={{opacity:0, translateY:60}}
+          animate={{opacity:1, translateY:0}}
+          transition={{duration:.5, delay:0.2}}
+          >cant upload .png or .webp files, please try again</motion.p>
+        </div>
+        </>)}
+
+
+        {/* {predictions && <img src={dataUrl} alt="" />} */}
+        {predictions && (
+        <div className="imageContainer">
+
+          <div className="imgC">
+            <motion.img src={dataUrl} alt=""
+            initial={{opacity:0}}
+            animate={{opacity:1}}
+            transition={{duration:.5}}
+            />
+          </div>
+          <div className="predictionBox">
+            <div className="predictions">
+              <h3>
+                PREDICTION DATA
+              </h3>
+
+              <div className="data">
+                <h1> Image Type: <span style={{color:predictions.class === 'Deepfake' ? 'red' : 'green'}}>{predictions.class.toUpperCase()}</span></h1>
+                <h2>Confidence Level: <span>{Math.floor(predictions.score * 100).toFixed(1)}% Accuracy</span></h2>
+              </div>
+            </div>
+
+          </div>
+        </div>)}
+      </motion.div>
+    </div>
   )
 }
 export default IsDeepfake
