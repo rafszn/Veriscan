@@ -63,7 +63,7 @@ const IsDeepfake = () => {
 
       const [name ]= file.name.split('.')
       const obj = { 
-        fileName: name,
+        fileImage: dataUrl,
         fileType: file.type,
         prediction: response.data[0].class,
         accuracy: response.data[0].score * 100
@@ -204,12 +204,16 @@ const IsDeepfake = () => {
 
             {array.map((result, i)=>{
               return (
-              <div key={i} className="record">
-                <i>{i+1}.</i>
-                <p>name: <span>{result.fileName}</span></p>
-                <p>file type: <span>{result.fileType}</span></p>
-                <p>prediction: <span style={{color: result.prediction === 'Deepfake' ? 'red' : 'green'}}>{result.prediction.toUpperCase()}</span></p>
-                <p>accuracy: <span>{Math.round(result.accuracy)}%</span></p>  
+              <div key={i}>
+                <div className="record">
+                  <i>{i+1}.</i>
+                  <img src={result.fileImage} alt="" />
+                  <p>file type: <span>{result.fileType}</span></p>
+                  <p>prediction: <span style={{color: result.prediction === 'Deepfake' ? 'red' : 'green'}}>{result.prediction.toUpperCase()}</span></p>
+                  <p>accuracy: <span>{Math.round(result.accuracy)}%</span></p> 
+
+                </div>
+                <hr /> 
               </div>
               )
             })}
