@@ -59,7 +59,7 @@ const IsDeepfake = () => {
       const formData = new FormData();
       formData.append('file', file);
       setMsg('Analyzing image data')
-      const response = await axios.post('https://veriscan-n.onrender.com/deepfake', formData)
+      const response = await axios.post('https://veriscan-n.vercel.app/deepfake', formData)
 
       const [name ]= file.name.split('.')
       const obj = { 
@@ -74,7 +74,7 @@ const IsDeepfake = () => {
       setIsLoading(false)
 
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data.message)
       setIsLoading(false)
       setError(true)
     }
@@ -121,6 +121,7 @@ const IsDeepfake = () => {
             does not support .png and .webp files
           </i>
           <input type="file" onChange={HANDLECHANGE}/>
+          {/* <input type="text" placeholder="provide an image url"onChange={HANDLECHANGE}/> */}
           <button onClick={HANDLEUPLOAD} disabled={isLoading}>
             Scan Image Data
           </button>
